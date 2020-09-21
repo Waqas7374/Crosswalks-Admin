@@ -1,0 +1,30 @@
+.srchRatio {
+  display: block !important;
+  left: 190px !important;
+}
+.getRatio {
+  position: absolute;
+  top: 65px;
+  left: 415px;
+  z-index: 1000000;
+  padding: 6px 10px;
+  background: rgba(38,166,154,0.7);
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+}
+.showRatioReport {
+  position: absolute;
+  top: 64px;
+  left: 508px;
+  z-index: 1000000;
+  padding: 6px 10px;
+  background: rgba(38,166,154,0.7);
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+}
