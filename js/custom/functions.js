@@ -71,30 +71,20 @@ function Crosswalk(val, column) {
 
             if (features[0].S.stusps != '')
               table += '<a class="toggle-vis" data-column="4">State</a> - ';
-
             table += '<a class="toggle-vis" data-column="5">Percent of ' + boundary1 + '</a> - <a class="toggle-vis" data-column="6">Percent within ' + boundary1 + '</a></div>';
-
             table += '<table style="width: 100%;" border="1" class="table table-bordered tablesorter"><thead><tr><th>Rank</th><th>' + boundary1 + ' ID</th><th>' + displayText + ' ID</th><th>' + displayText + ' Name</th>';
-
             if (features[0].S.stusps != '')
               table += '<th>State</th>';
-
             table += '<th>Percent of ' + boundary1 + '</th><th>Percent within ' + boundary1 + '</th></tr></thead>';
           } else {
             var table = '<div style="margin-bottom: 8px; color: rgba(58, 131, 124, 0.81); margin-bottom: 10px;"><b>Toggle column: </b><a class="toggle-vis" data-column="1">' + displayText + ' ID</a> -<a class="toggle-vis" data-column="2">' + displayText + ' Name</a> - ';
-
             if (features[0].S.stusps != '')
               table += '<a class="toggle-vis" data-column="3">State</a> - ';
-
             table += '<a class="toggle-vis" data-column="4">Percent of ' + boundary1 + '</a> - <a class="toggle-vis" data-column="5">Percent within ' + boundary1 + '</a></div>';
-
             table += '<table style="width: 100%;" border="1" class="table table-bordered tablesorter"><thead><tr><th>Rank</th><th>' + displayText + ' ID</th><th>' + displayText + ' Name</th>';
-
             if (features[0].S.stusps != '')
               table += '<th>State</th>';
-
             table += '<th>Percent of ' + boundary1 + '</th><th>Percent within ' + boundary1 + '</th></tr></thead>';
-
           }
           table += '<tbody><tr>';
           var options = '';
