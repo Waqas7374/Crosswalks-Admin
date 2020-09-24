@@ -451,7 +451,7 @@ function getBoundary(lyrName, statefp) {
       } else if (lyrName == "subbasin") {
         url = '../geoserver/wfs?service=WFS&' +
           'version=1.1.0&request=GetFeature&typename=Farmer:' + lyrName + '&CQL_FILTER=states ILIKE ' + '\'%25' + stabbr + '%25\'' + '&outputFormat=application/json&PropertyName=huc,colorid,geomsimple&srsname=EPSG:3857&' + ',EPSG:3857';
-      } else if (lyrName == "NeighbourCities") {
+      } else if (lyrName == "neighbourcities") {
         url = '../geoserver/wfs?service=WFS&' +
           'version=1.1.0&request=GetFeature&typename=Farmer:neighbourcities&CQL_FILTER=statefp ILIKE ' + '\'%25' + statefp + '%25\'' + '&outputFormat=application/json&PropertyName=name,colorid,state,geom&srsname=EPSG:3857&' + ',EPSG:3857';
       } else if (lyrName == "consumermarket") {
@@ -705,90 +705,65 @@ function onMouseClick(evt) {
       $('#selGo' + code).prop('selectedIndex', 0);
       $("#selGo" + code).trigger("change");
       $("#selGo" + code).selectpicker('refresh');
-      if ($("#selCode").val() == 'Zip') {
-        // baseZip = getBoundary('zip', statefp);
-        // map.addLayer(baseZip);
-        crosswalkLayers['Zip'] = getBoundary('zip', statefp);
-        map.addLayer(crosswalkLayers['Zip']);
-      } else if ($("#selCode").val() == 'Tracts') {
-        // baseTracts = getBoundary('tracts', statefp);
-        // map.addLayer(baseTracts);
-        crosswalkLayers['Tracts'] = getBoundary('tracts', statefp);
-        map.addLayer(crosswalkLayers['Tracts']);
-      } else if ($("#selCode").val() == 'Counties') {
-        // baseCounties = getBoundary('counties', statefp);
-        // map.addLayer(baseCounties);
-        crosswalkLayers['Counties'] = getBoundary('counties', statefp);
-        map.addLayer(crosswalkLayers['Counties']);
-      } else if ($("#selCode").val() == 'LauCnty') {
-        // baseLauCnty = getBoundary('laucnty', statefp);
-        // map.addLayer(baseLauCnty);
-        crosswalkLayers['LauCnty'] = getBoundary('laucnty', statefp);
-        map.addLayer(crosswalkLayers['LauCnty']);
-      } else if ($("#selCode").val() == 'Food_Report') {
-        // baseFood_Report = getBoundary('food_report', statefp);
-        // map.addLayer(baseFood_Report);
-        crosswalkLayers['Food_Report'] = getBoundary('food_report', statefp);
-        map.addLayer(crosswalkLayers['Food_Report']);
-      } else if ($("#selCode").val() == 'Districts') {
-        // baseDistricts = getBoundary('districts', statefp);
-        // map.addLayer(baseDistricts);
-        crosswalkLayers['Districts'] = getBoundary('districts', statefp);
-        map.addLayer(crosswalkLayers['Districts']);
-      } else if ($("#selCode").val() == 'Cities') {
-        // baseCities = getBoundary('cities', statefp);
-        // map.addLayer(baseCities);
-        crosswalkLayers['Cities'] = getBoundary('cities', statefp);
-        map.addLayer(crosswalkLayers['Cities']);
-      } else if ($("#selCode").val() == 'MSAs') {
-        // baseMSAs = getBoundary('msas', statefp);
-        // map.addLayer(baseMSAs);
-        crosswalkLayers['MSAs'] = getBoundary('msas', statefp);
-        map.addLayer(crosswalkLayers['MSAs']);
-      } else if ($("#selCode").val() == 'NeighbourCities') {
-        // baseNeighbourCities = getBoundary('NeighbourCities', statefp);
-        // map.addLayer(baseNeighbourCities);
-        crosswalkLayers['NeighbourCities'] = getBoundary('NeighbourCities', statefp);
-        map.addLayer(crosswalkLayers['NeighbourCities']);
-      } else if ($("#selCode").val() == 'Schools_CCD') {
-        // baseSchools_CCD = getBoundary('schools_ccd', statefp);
-        // map.addLayer(baseSchools_CCD);
-        crosswalkLayers['Schools_CCD'] = getBoundary('schools_ccd', statefp);
-        map.addLayer(crosswalkLayers['Schools_CCD']);
-      } else if ($("#selCode").val() == 'ConsumerMarket') {
-        // baseConsumerMarket = getBoundary('consumermarket', statefp);
-        // map.addLayer(baseConsumerMarket);
-        crosswalkLayers['ConsumerMarket'] = getBoundary('consumermarket', statefp);
-        map.addLayer(crosswalkLayers['ConsumerMarket']);
-      } else if ($("#selCode").val() == 'HSA') {
-        // baseHSA = getBoundary('hsa', statefp);
-        // map.addLayer(baseHSA);
-        crosswalkLayers['HSA'] = getBoundary('hsa', statefp);
-        map.addLayer(crosswalkLayers['HSA']);
-      } else if ($("#selCode").val() == 'HRR') {
-        // baseHRR = getBoundary('hrr', statefp);
-        // map.addLayer(baseHRR);
-        crosswalkLayers['HRR'] = getBoundary('hrr', statefp);
-        map.addLayer(crosswalkLayers['HRR']);
-      } else if ($("#selCode").val() == 'SubBasin') {
-        // baseSubBasin = getBoundary('subbasin', statefp);
-        // map.addLayer(baseSubBasin);
-        crosswalkLayers['SubBasin'] = getBoundary('subbasin', statefp);
-        map.addLayer(crosswalkLayers['SubBasin']);
-      } else if ($("#selCode").val() == 'OpportunityZones') {
-        // baseOpportunityZones = getBoundary('opportunityzones', statename.toLowerCase());
-        // map.addLayer(baseOpportunityZones);
+      var selCode = $("#selCode").val();
+      if (selCode === 'Zip' || selCode === 'Tracts' || selCode === 'Counties' || selCode === 'LauCnty' || selCode === 'Food_Report' || selCode === 'Districts' || selCode === 'Cities' || selCode === 'MSAs' || selCode === 'NeighbourCities' || selCode === 'Schools_CCD' || selCode === 'ConsumerMarket' || selCode === 'HSA' || selCode === 'HRR' || selCode === 'SubBasin' || selCode === 'STR_Geocoded_All_New') {
+          crosswalkLayers[selCode] = getBoundary(selCode.toLowerCase(), statefp);
+          map.addLayer(crosswalkLayers[selCode]);
+      }
+      // if ($("#selCode").val() == 'Zip') {
+      //   crosswalkLayers['Zip'] = getBoundary('zip', statefp);
+      //   map.addLayer(crosswalkLayers['Zip']);
+      // } else if ($("#selCode").val() == 'Tracts') {
+      //   crosswalkLayers['Tracts'] = getBoundary('tracts', statefp);
+      //   map.addLayer(crosswalkLayers['Tracts']);
+      // } else if ($("#selCode").val() == 'Counties') {
+      //   crosswalkLayers['Counties'] = getBoundary('counties', statefp);
+      //   map.addLayer(crosswalkLayers['Counties']);
+      // } else if ($("#selCode").val() == 'LauCnty') {
+      //   crosswalkLayers['LauCnty'] = getBoundary('laucnty', statefp);
+      //   map.addLayer(crosswalkLayers['LauCnty']);
+      // } else if ($("#selCode").val() == 'Food_Report') {
+      //   crosswalkLayers['Food_Report'] = getBoundary('food_report', statefp);
+      //   map.addLayer(crosswalkLayers['Food_Report']);
+      // } else if ($("#selCode").val() == 'Districts') {
+      //   crosswalkLayers['Districts'] = getBoundary('districts', statefp);
+      //   map.addLayer(crosswalkLayers['Districts']);
+      // } else if ($("#selCode").val() == 'Cities') {
+      //   crosswalkLayers['Cities'] = getBoundary('cities', statefp);
+      //   map.addLayer(crosswalkLayers['Cities']);
+      // } else if ($("#selCode").val() == 'MSAs') {
+      //   crosswalkLayers['MSAs'] = getBoundary('msas', statefp);
+      //   map.addLayer(crosswalkLayers['MSAs']);
+      // } else if ($("#selCode").val() == 'NeighbourCities') {
+      //   crosswalkLayers['NeighbourCities'] = getBoundary('NeighbourCities', statefp);
+      //   map.addLayer(crosswalkLayers['NeighbourCities']);
+      // } else if ($("#selCode").val() == 'Schools_CCD') {
+      //   crosswalkLayers['Schools_CCD'] = getBoundary('schools_ccd', statefp);
+      //   map.addLayer(crosswalkLayers['Schools_CCD']);
+      // } else if ($("#selCode").val() == 'ConsumerMarket') {
+      //   crosswalkLayers['ConsumerMarket'] = getBoundary('consumermarket', statefp);
+      //   map.addLayer(crosswalkLayers['ConsumerMarket']);
+      // } else if ($("#selCode").val() == 'HSA') {
+      //   crosswalkLayers['HSA'] = getBoundary('hsa', statefp);
+      //   map.addLayer(crosswalkLayers['HSA']);
+      // } else if ($("#selCode").val() == 'HRR') {
+      //   crosswalkLayers['HRR'] = getBoundary('hrr', statefp);
+      //   map.addLayer(crosswalkLayers['HRR']);
+      // } else if ($("#selCode").val() == 'SubBasin') {
+      //   crosswalkLayers['SubBasin'] = getBoundary('subbasin', statefp);
+      //   map.addLayer(crosswalkLayers['SubBasin']);
+      // } else if ($("#selCode").val() == 'OpportunityZones') {
+      //   crosswalkLayers['OpportunityZones'] = getBoundary('opportunityzones', statename.toLowerCase());
+      //   map.addLayer(crosswalkLayers['OpportunityZones']);
+      // } else if ($("#selCode").val() == 'STR_Geocoded_All_New') {
+      //   crosswalkLayers['STR_Geocoded_All_New'] = getBoundary('str_geocoded_all_new', stabbr);
+      //   map.addLayer(crosswalkLayers['STR_Geocoded_All_New']);
+      // }
+      else if ($("#selCode").val() == 'OpportunityZones') {
         crosswalkLayers['OpportunityZones'] = getBoundary('opportunityzones', statename.toLowerCase());
         map.addLayer(crosswalkLayers['OpportunityZones']);
-      } else if ($("#selCode").val() == 'SubWatershed') {
-        // wmsSubWatershed.getSource().updateParams({
-        //   'LAYERS': 'Farmer:subwatershed',
-        //   'cql_filter': "statefp ilike '%" + statefp + "%'",
-        //   'STYLES': 'subwatershed'
-        // });
-        // wmsSubWatershed.setVisible(true);
-        // baseSubWatershed = getBoundary('subwatershed', statefp);
-        // map.addLayer(baseSubWatershed);
+      }
+      else if ($("#selCode").val() == 'SubWatershed') {
         crosswalkLayers['wmsSubWatershed'].getSource().updateParams({
           'LAYERS': 'Farmer:subwatershed',
           'cql_filter': "statefp ilike '%" + statefp + "%'",
@@ -797,11 +772,6 @@ function onMouseClick(evt) {
         crosswalkLayers['wmsSubWatershed'].setVisible(true);
         crosswalkLayers['wmsSubWatershed'] = getBoundary('subwatershed', statefp);
         map.addLayer(crosswalkLayers['wmsSubWatershed']);
-      } else if ($("#selCode").val() == 'STR_Geocoded_All_New') {
-        // baseSTR_Geocoded_All_New = getBoundary('str_geocoded_all_new', stabbr);
-        // map.addLayer(baseSTR_Geocoded_All_New);
-        crosswalkLayers['STR_Geocoded_All_New'] = getBoundary('str_geocoded_all_new', stabbr);
-        map.addLayer(crosswalkLayers['STR_Geocoded_All_New']);
       } else if ($("#selCode").val() == 'State') {
         $("#searchBarState").val(feature.S.name);
         var extent = feature.getGeometry().getExtent();
@@ -898,7 +868,7 @@ function onMouseClick(evt) {
       var geoid = feature.S.geoid;
       $("#searchBarMSAs").val(geoid);
       btnSearch('MSAs', 'geoid');
-    } else if (layerName == 'NeighbourCities') {
+    } else if (layerName == 'neighbourcities') {
       var stusps = feature.S.state;
       var name = feature.S.name;
       var txt = name + "," + stusps;
