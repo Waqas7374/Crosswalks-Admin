@@ -151,55 +151,72 @@ function removeLayers() {
   } catch (e) {}
   // Base Overlays
   try {
-    map.removeLayer(baseZip);
+    // map.removeLayer(baseZip);
+    map.removeLayer(crosswalkLayers['Zip']);
   } catch (e) {}
   try {
-    map.removeLayer(baseTracts);
+    // map.removeLayer(baseTracts);
+    map.removeLayer(crosswalkLayers['Tracts']);
   } catch (e) {}
   try {
-    map.removeLayer(baseCounties);
+    // map.removeLayer(baseCounties);
+    map.removeLayer(crosswalkLayers['Counties']);
   } catch (e) {}
   try {
-    map.removeLayer(baseCities);
+    // map.removeLayer(baseCities);
+    map.removeLayer(crosswalkLayers['Cities']);
   } catch (e) {}
   try {
-    map.removeLayer(baseDistricts);
+    // map.removeLayer(baseDistricts);
+    map.removeLayer(crosswalkLayers['Districts']);
   } catch (e) {}
   try {
-    map.removeLayer(baseMSAs);
+    // map.removeLayer(baseMSAs);
+    map.removeLayer(crosswalkLayers['MSAs']);
   } catch (e) {}
   try {
-    map.removeLayer(baseNeighbourCities);
+    // map.removeLayer(baseNeighbourCities);
+    map.removeLayer(crosswalkLayers['NeighbourCities']);
   } catch (e) {}
   try {
-    map.removeLayer(baseLauCnty);
+    // map.removeLayer(baseLauCnty);
+    map.removeLayer(crosswalkLayers['LauCnty']);
   } catch (e) {}
   try {
-    map.removeLayer(baseFood_Report);
+    // map.removeLayer(baseFood_Report);
+    map.removeLayer(crosswalkLayers['Food_Report']);
   } catch (e) {}
   try {
-    map.removeLayer(baseSchools_CCD);
+    // map.removeLayer(baseSchools_CCD);
+    map.removeLayer(crosswalkLayers['Schools_CCD']);
   } catch (e) {}
   try {
-    map.removeLayer(baseConsumerMarket);
+    // map.removeLayer(baseConsumerMarket);
+    map.removeLayer(crosswalkLayers['ConsumerMarket']);
   } catch (e) {}
   try {
-    map.removeLayer(baseHSA);
+    // map.removeLayer(baseHSA);
+    map.removeLayer(crosswalkLayers['HSA']);
   } catch (e) {}
   try {
-    map.removeLayer(baseHRR);
+    // map.removeLayer(baseHRR);
+    map.removeLayer(crosswalkLayers['HRR']);
   } catch (e) {}
   try {
-    map.removeLayer(baseSubWatershed);
+    // map.removeLayer(baseSubWatershed);
+    map.removeLayer(crosswalkLayers['SubWatershed']);
   } catch (e) {}
   try {
-    map.removeLayer(baseSubBasin);
+    // map.removeLayer(baseSubBasin);
+    map.removeLayer(crosswalkLayers['SubBasin']);
   } catch (e) {}
   try {
-    map.removeLayer(baseOpportunityZones);
+    // map.removeLayer(baseOpportunityZones);
+    map.removeLayer(crosswalkLayers['OpportunityZones']);
   } catch (e) {}
   try {
-    map.removeLayer(baseSTR_Geocoded_All_New);
+    // map.removeLayer(baseSTR_Geocoded_All_New);
+    map.removeLayer(crosswalkLayers['STR_Geocoded_All_New']);
   } catch (e) {}
 }
 
@@ -287,20 +304,34 @@ function toggleSearchDivs(val) {
 }
 
 function toggleBaseLayers(val) {
-  baseRegion.setVisible(false);
-  baseBEA10.setVisible(false);
-  baseCBSA10.setVisible(false);
-  baseStates.setVisible(false);
-  baseERS10.setVisible(false);
-  baseERS10Rep.setVisible(false);
-  baseMSAs_Grainger.setVisible(false);
-  // baseOpportunityZones.setVisible(false);
-  basePEA10.setVisible(false);
-  baseTP10.setVisible(false);
-  baseTP10METRO.setVisible(false);
-  baseTP10MICRO.setVisible(false);
-  baseWaterShedRegions.setVisible(false);
-  baseTribalLand.setVisible(false);
+  // baseRegion.setVisible(false);
+  // baseBEA10.setVisible(false);
+  // baseCBSA10.setVisible(false);
+  // baseStates.setVisible(false);
+  // baseERS10.setVisible(false);
+  // baseERS10Rep.setVisible(false);
+  // baseMSAs_Grainger.setVisible(false);
+  // // // baseOpportunityZones.setVisible(false);
+  // basePEA10.setVisible(false);
+  // baseTP10.setVisible(false);
+  // baseTP10METRO.setVisible(false);
+  // baseTP10MICRO.setVisible(false);
+  // baseWaterShedRegions.setVisible(false);
+  // baseTribalLand.setVisible(false);
+  crosswalkLayers['Region'].setVisible(false);
+  crosswalkLayers['BEA10'].setVisible(false);
+  crosswalkLayers['CBSA10'].setVisible(false);
+  crosswalkLayers['States'].setVisible(false);
+  crosswalkLayers['ERS10'].setVisible(false);
+  crosswalkLayers['ERS10Rep'].setVisible(false);
+  crosswalkLayers['MSAs_Grainger'].setVisible(false);
+  // // baseOpportunityZones.setVisible(false);
+  crosswalkLayers['PEA10'].setVisible(false);
+  crosswalkLayers['TP10'].setVisible(false);
+  crosswalkLayers['TP10METRO'].setVisible(false);
+  crosswalkLayers['TP10MICRO'].setVisible(false);
+  crosswalkLayers['WaterShedRegions'].setVisible(false);
+  crosswalkLayers['TribalLand'].setVisible(false);
   // baseSTR_Geocoded_All_New.setVisible(false);
   // show
   val.setVisible(true);
@@ -324,23 +355,28 @@ function changeLabels(value) {
   } else if (value == "off") {
     hideLabels = true;
   }
-  baseStates.setStyle(getBoundaryAndLabelStyle);
-  baseRegion.setStyle(getBoundaryAndLabelStyle);
+  // baseStates.setStyle(getBoundaryAndLabelStyle);
+  // baseRegion.setStyle(getBoundaryAndLabelStyle);
+  crosswalkLayers['States'].setStyle(getBoundaryAndLabelStyle);
+  crosswalkLayers['Region'].setStyle(getBoundaryAndLabelStyle);
 
   var code = $("#selCode").val();
 
   if ($("#searchBar" + code + "").val() != '') {
     Ghosted = "On";
     try {
-      eval('base' + code).setStyle(getBoundaryAndLabelStyle);
+      // eval('base' + code).setStyle(getBoundaryAndLabelStyle);
+      eval(crosswalkLayers[code]).setStyle(getBoundaryAndLabelStyle);
     } catch (e) {}
   } else {
     Ghosted = "Off";
     try {
-      eval('base' + code).setStyle(getBoundaryAndLabelStyle);
+      // eval('base' + code).setStyle(getBoundaryAndLabelStyle);
+      crosswalkLayers[code].setStyle(getBoundaryAndLabelStyle);
     } catch (e) {}
   }
-  baseSubWatershed.setVisible(true);
+  // baseSubWatershed.setVisible(true);
+  crosswalkLayers['SubWatershed'].setVisible(true);
   try {
     sLayer.setStyle(getStyle);
   } catch (e) {}
@@ -352,7 +388,8 @@ function changeLabels(value) {
 function btnSearch(val, code) {
   Ghosted = "On";
   try {
-    eval('base' + val).setStyle(getBoundaryAndLabelStyle);
+    // eval('base' + val).setStyle(getBoundaryAndLabelStyle);
+    crosswalkLayers[val].setStyle(getBoundaryAndLabelStyle);
   } catch (e) {}
   $('#selGo' + val + '').prop('selectedIndex', 0);
   $('#selGo' + val + '').trigger("change");

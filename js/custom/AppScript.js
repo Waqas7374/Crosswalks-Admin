@@ -21,39 +21,78 @@ var view = new ol.View({
   zoom: 4
 });
 // All Base Layers
-var baseStates,
-  baseZip,
-  baseTracts,
-  baseCounties,
-  baseLauCnty,
-  baseFood_Report,
-  baseRegion,
-  baseDistricts,
-  baseCities,
-  baseMSAs,
-  baseNeighbourCities,
-  baseBEA10,
-  baseCBSA10,
-  baseERS10,
-  baseERS10Rep,
-  baseMSAs_Grainger,
-  baseOpportunityZones,
-  baseSTR_Geocoded_All_New,
-  basePEA10,
-  baseTP10,
-  baseTP10METRO,
-  baseTP10MICRO,
-  baseTribalLand,
-  baseSchools_CCD,
-  baseHSA,
-  baseHRR,
-  baseWaterShedRegions,
-  baseSubBasin,
-  wmsSubWatershed,
-  baseConsumerMarket,
-  ratioLayer,
+// var baseStates,
+//   baseZip,
+//   baseTracts,
+//   baseCounties,
+//   baseLauCnty,
+//   baseFood_Report,
+//   baseRegion,
+//   baseDistricts,
+//   baseCities,
+//   baseMSAs,
+//   baseNeighbourCities,
+//   baseBEA10,
+//   baseCBSA10,
+//   baseERS10,
+//   baseERS10Rep,
+//   baseMSAs_Grainger,
+//   baseOpportunityZones,
+//   baseSTR_Geocoded_All_New,
+//   basePEA10,
+//   baseTP10,
+//   baseTP10METRO,
+//   baseTP10MICRO,
+//   baseTribalLand,
+//   baseSchools_CCD,
+//   baseHSA,
+//   baseHRR,
+//   baseWaterShedRegions,
+//   baseSubBasin,
+//   wmsSubWatershed,
+//   baseConsumerMarket,
+//
+//   // // // Ratio Layers
+//   ratioLayer,
+//   ratioStates,
+//   ratioCounties,
+//   ratioCBSA10,
+//   ratioZip,
+//   ratioTracts;
 
-  // Ratio Layers
+// var baseStates,
+//   baseZip,
+//   baseTracts,
+//   baseCounties,
+//   baseLauCnty,
+//   baseFood_Report,
+//   baseRegion,
+//   baseDistricts,
+//   baseCities,
+//   baseMSAs,
+//   baseNeighbourCities,
+//   baseBEA10,
+//   baseCBSA10,
+//   baseERS10,
+//   baseERS10Rep,
+//   baseMSAs_Grainger,
+//   baseOpportunityZones,
+//   baseSTR_Geocoded_All_New,
+//   basePEA10,
+//   baseTP10,
+//   baseTP10METRO,
+//   baseTP10MICRO,
+//   baseTribalLand,
+//   baseSchools_CCD,
+//   baseHSA,
+//   baseHRR,
+//   baseWaterShedRegions,
+//   baseSubBasin,
+//   wmsSubWatershed,
+//   baseConsumerMarket,
+//
+//   // // // Ratio Layers
+var ratioLayer,
   ratioStates,
   ratioCounties,
   ratioCBSA10,
@@ -221,31 +260,51 @@ var osm = new ol.layer.Tile({
 var geoJSONFormat = new ol.format.GeoJSON();
 
 var map, zips, tracts, county, states, statefp, stabbr, statename;
-
+var crosswalkLayers = [];
 function init() {
   $('select').selectpicker();
   toastr.info("Use Text Boxes or click on the map");
   toastr.info("Use ';' delimiter for searching Multiple ZIPS like '36322;36005'");
-  baseSubWatershed = getBoundary("subwatershed");
-  baseStates = getBoundary('states');
-  baseRegion = getBoundary("region");
-  baseBEA10 = getBoundary("bea10");
-  baseCBSA10 = getBoundary("cbsa10");
-  baseERS10 = getBoundary("ers10");
-  baseERS10Rep = getBoundary("ers10rep");
-  baseMSAs_Grainger = getBoundary("msas_grainger");
+  // baseSubWatershed = getBoundary("subwatershed");
+  // baseStates = getBoundary('states');
+  // baseRegion = getBoundary("region");
+  // baseBEA10 = getBoundary("bea10");
+  // baseCBSA10 = getBoundary("cbsa10");
+  // baseERS10 = getBoundary("ers10");
+  // baseERS10Rep = getBoundary("ers10rep");
+  // baseMSAs_Grainger = getBoundary("msas_grainger");
+  // // // baseOpportunityZones = getBoundary("opportunityzones");
+  // basePEA10 = getBoundary("pea10");
+  // baseTP10 = getBoundary("tp10");
+  // baseTP10METRO = getBoundary("tp10metro");
+  // baseTP10MICRO = getBoundary("tp10micro");
+  // baseTribalLand = getBoundary("triballand");
+  // baseSchools_CCD = getBoundary("schools_ccd");
+  // baseConsumerMarket = getBoundary("consumermarket");
+  // baseHSA = getBoundary("hsa");
+  // baseHRR = getBoundary("hrr");
+  // baseWaterShedRegions = getBoundary("watershedregions");
+  // wmsSubWatershed = getWMS("SubWatershed", "subwatershed", "subwatershed", false);
+  crosswalkLayers['SubWatershed'] = getBoundary("subwatershed");
+  crosswalkLayers['States'] = getBoundary('states');
+  crosswalkLayers['Region'] = getBoundary("region");
+  crosswalkLayers['BEA10'] = getBoundary("bea10");
+  crosswalkLayers['CBSA10'] = getBoundary("cbsa10");
+  crosswalkLayers['ERS10'] = getBoundary("ers10");
+  crosswalkLayers['ERS10Rep'] = getBoundary("ers10rep");
+  crosswalkLayers['MSAs_Grainger'] = getBoundary("msas_grainger");
   // baseOpportunityZones = getBoundary("opportunityzones");
-  basePEA10 = getBoundary("pea10");
-  baseTP10 = getBoundary("tp10");
-  baseTP10METRO = getBoundary("tp10metro");
-  baseTP10MICRO = getBoundary("tp10micro");
-  baseTribalLand = getBoundary("triballand");
-  baseSchools_CCD = getBoundary("schools_ccd");
-  baseConsumerMarket = getBoundary("consumermarket");
-  baseHSA = getBoundary("hsa");
-  baseHRR = getBoundary("hrr");
-  baseWaterShedRegions = getBoundary("watershedregions");
-  wmsSubWatershed = getWMS("SubWatershed", "subwatershed", "subwatershed", false);
+  crosswalkLayers['PEA10'] = getBoundary("pea10");
+  crosswalkLayers['TP10'] = getBoundary("tp10");
+  crosswalkLayers['TP10METRO'] = getBoundary("tp10metro");
+  crosswalkLayers['TP10MICRO'] = getBoundary("tp10micro");
+  crosswalkLayers['TribalLand'] = getBoundary("triballand");
+  crosswalkLayers['Schools_CCD'] = getBoundary("schools_ccd");
+  crosswalkLayers['ConsumerMarket'] = getBoundary("consumermarket");
+  crosswalkLayers['HSA'] = getBoundary("hsa");
+  crosswalkLayers['HRR'] = getBoundary("hrr");
+  crosswalkLayers['WaterShedRegions'] = getBoundary("watershedregions");
+  crosswalkLayers['wmsSubWatershed'] = getWMS("SubWatershed", "subwatershed", "subwatershed", false);
 
   map = new ol.Map({
     layers: [
@@ -254,30 +313,46 @@ function init() {
       terrainStamen,
       bingRoads,
       osmLight,
-      wmsSubWatershed,
+      crosswalkLayers['wmsSubWatershed'],
       /* Layer */
-      baseStates,
-      baseSubWatershed,
-      baseRegion,
-      baseBEA10,
-      baseCBSA10,
-      baseERS10,
-      baseERS10Rep,
-
-      baseMSAs_Grainger,
+      // baseStates,
+      // baseSubWatershed,
+      // baseRegion,
+      // baseBEA10,
+      // baseCBSA10,
+      // baseERS10,
+      // baseERS10Rep,
+      // baseMSAs_Grainger,
+      // // // baseOpportunityZones,
+      // basePEA10,
+      // baseTP10,
+      // baseTP10METRO,
+      // baseTP10MICRO,
+      // baseTribalLand,
+      // baseWaterShedRegions
+      crosswalkLayers['States'],
+      crosswalkLayers['SubWatershed'],
+      crosswalkLayers['Region'],
+      crosswalkLayers['BEA10'],
+      crosswalkLayers['CBSA10'],
+      crosswalkLayers['ERS10'],
+      crosswalkLayers['ERS10Rep'],
+      crosswalkLayers['MSAs_Grainger'],
       // baseOpportunityZones,
-      basePEA10,
-      baseTP10,
-      baseTP10METRO,
-      baseTP10MICRO,
-      baseTribalLand,
-      baseWaterShedRegions
+      crosswalkLayers['PEA10'],
+      crosswalkLayers['TP10'],
+      crosswalkLayers['TP10METRO'],
+      crosswalkLayers['TP10MICRO'],
+      crosswalkLayers['TribalLand'],
+      crosswalkLayers['WaterShedRegions']
     ],
     target: 'map',
     view: view
   });
-  baseSubWatershed.setVisible(false);
-  toggleBaseLayers(baseStates);
+  // baseSubWatershed.setVisible(false);
+  // toggleBaseLayers(baseStates);
+  crosswalkLayers['SubWatershed'].setVisible(false);
+  toggleBaseLayers(crosswalkLayers['States']);
 
   map.on('singleclick', onMouseClick);
   map.on('pointermove', function(evt) {
@@ -631,62 +706,102 @@ function onMouseClick(evt) {
       $("#selGo" + code).trigger("change");
       $("#selGo" + code).selectpicker('refresh');
       if ($("#selCode").val() == 'Zip') {
-        baseZip = getBoundary('zip', statefp);
-        map.addLayer(baseZip);
+        // baseZip = getBoundary('zip', statefp);
+        // map.addLayer(baseZip);
+        crosswalkLayers['Zip'] = getBoundary('zip', statefp);
+        map.addLayer(crosswalkLayers['Zip']);
       } else if ($("#selCode").val() == 'Tracts') {
-        baseTracts = getBoundary('tracts', statefp);
-        map.addLayer(baseTracts);
+        // baseTracts = getBoundary('tracts', statefp);
+        // map.addLayer(baseTracts);
+        crosswalkLayers['Tracts'] = getBoundary('tracts', statefp);
+        map.addLayer(crosswalkLayers['Tracts']);
       } else if ($("#selCode").val() == 'Counties') {
-        baseCounties = getBoundary('counties', statefp);
-        map.addLayer(baseCounties);
+        // baseCounties = getBoundary('counties', statefp);
+        // map.addLayer(baseCounties);
+        crosswalkLayers['Counties'] = getBoundary('counties', statefp);
+        map.addLayer(crosswalkLayers['Counties']);
       } else if ($("#selCode").val() == 'LauCnty') {
-        baseLauCnty = getBoundary('laucnty', statefp);
-        map.addLayer(baseLauCnty);
+        // baseLauCnty = getBoundary('laucnty', statefp);
+        // map.addLayer(baseLauCnty);
+        crosswalkLayers['LauCnty'] = getBoundary('laucnty', statefp);
+        map.addLayer(crosswalkLayers['LauCnty']);
       } else if ($("#selCode").val() == 'Food_Report') {
-        baseFood_Report = getBoundary('food_report', statefp);
-        map.addLayer(baseFood_Report);
+        // baseFood_Report = getBoundary('food_report', statefp);
+        // map.addLayer(baseFood_Report);
+        crosswalkLayers['Food_Report'] = getBoundary('food_report', statefp);
+        map.addLayer(crosswalkLayers['Food_Report']);
       } else if ($("#selCode").val() == 'Districts') {
-        baseDistricts = getBoundary('districts', statefp);
-        map.addLayer(baseDistricts);
+        // baseDistricts = getBoundary('districts', statefp);
+        // map.addLayer(baseDistricts);
+        crosswalkLayers['Districts'] = getBoundary('districts', statefp);
+        map.addLayer(crosswalkLayers['Districts']);
       } else if ($("#selCode").val() == 'Cities') {
-        baseCities = getBoundary('cities', statefp);
-        map.addLayer(baseCities);
+        // baseCities = getBoundary('cities', statefp);
+        // map.addLayer(baseCities);
+        crosswalkLayers['Cities'] = getBoundary('cities', statefp);
+        map.addLayer(crosswalkLayers['Cities']);
       } else if ($("#selCode").val() == 'MSAs') {
-        baseMSAs = getBoundary('msas', statefp);
-        map.addLayer(baseMSAs);
+        // baseMSAs = getBoundary('msas', statefp);
+        // map.addLayer(baseMSAs);
+        crosswalkLayers['MSAs'] = getBoundary('msas', statefp);
+        map.addLayer(crosswalkLayers['MSAs']);
       } else if ($("#selCode").val() == 'NeighbourCities') {
-        baseNeighbourCities = getBoundary('NeighbourCities', statefp);
-        map.addLayer(baseNeighbourCities);
+        // baseNeighbourCities = getBoundary('NeighbourCities', statefp);
+        // map.addLayer(baseNeighbourCities);
+        crosswalkLayers['NeighbourCities'] = getBoundary('NeighbourCities', statefp);
+        map.addLayer(crosswalkLayers['NeighbourCities']);
       } else if ($("#selCode").val() == 'Schools_CCD') {
-        baseSchools_CCD = getBoundary('schools_ccd', statefp);
-        map.addLayer(baseSchools_CCD);
+        // baseSchools_CCD = getBoundary('schools_ccd', statefp);
+        // map.addLayer(baseSchools_CCD);
+        crosswalkLayers['Schools_CCD'] = getBoundary('schools_ccd', statefp);
+        map.addLayer(crosswalkLayers['Schools_CCD']);
       } else if ($("#selCode").val() == 'ConsumerMarket') {
-        baseConsumerMarket = getBoundary('consumermarket', statefp);
-        map.addLayer(baseConsumerMarket);
+        // baseConsumerMarket = getBoundary('consumermarket', statefp);
+        // map.addLayer(baseConsumerMarket);
+        crosswalkLayers['ConsumerMarket'] = getBoundary('consumermarket', statefp);
+        map.addLayer(crosswalkLayers['ConsumerMarket']);
       } else if ($("#selCode").val() == 'HSA') {
-        baseHSA = getBoundary('hsa', statefp);
-        map.addLayer(baseHSA);
+        // baseHSA = getBoundary('hsa', statefp);
+        // map.addLayer(baseHSA);
+        crosswalkLayers['HSA'] = getBoundary('hsa', statefp);
+        map.addLayer(crosswalkLayers['HSA']);
       } else if ($("#selCode").val() == 'HRR') {
-        baseHRR = getBoundary('hrr', statefp);
-        map.addLayer(baseHRR);
+        // baseHRR = getBoundary('hrr', statefp);
+        // map.addLayer(baseHRR);
+        crosswalkLayers['HRR'] = getBoundary('hrr', statefp);
+        map.addLayer(crosswalkLayers['HRR']);
       } else if ($("#selCode").val() == 'SubBasin') {
-        baseSubBasin = getBoundary('subbasin', statefp);
-        map.addLayer(baseSubBasin);
+        // baseSubBasin = getBoundary('subbasin', statefp);
+        // map.addLayer(baseSubBasin);
+        crosswalkLayers['SubBasin'] = getBoundary('subbasin', statefp);
+        map.addLayer(crosswalkLayers['SubBasin']);
       } else if ($("#selCode").val() == 'OpportunityZones') {
-        baseOpportunityZones = getBoundary('opportunityzones', statename.toLowerCase());
-        map.addLayer(baseOpportunityZones);
+        // baseOpportunityZones = getBoundary('opportunityzones', statename.toLowerCase());
+        // map.addLayer(baseOpportunityZones);
+        crosswalkLayers['OpportunityZones'] = getBoundary('opportunityzones', statename.toLowerCase());
+        map.addLayer(crosswalkLayers['OpportunityZones']);
       } else if ($("#selCode").val() == 'SubWatershed') {
-        wmsSubWatershed.getSource().updateParams({
+        // wmsSubWatershed.getSource().updateParams({
+        //   'LAYERS': 'Farmer:subwatershed',
+        //   'cql_filter': "statefp ilike '%" + statefp + "%'",
+        //   'STYLES': 'subwatershed'
+        // });
+        // wmsSubWatershed.setVisible(true);
+        // baseSubWatershed = getBoundary('subwatershed', statefp);
+        // map.addLayer(baseSubWatershed);
+        crosswalkLayers['wmsSubWatershed'].getSource().updateParams({
           'LAYERS': 'Farmer:subwatershed',
           'cql_filter': "statefp ilike '%" + statefp + "%'",
           'STYLES': 'subwatershed'
         });
-        wmsSubWatershed.setVisible(true);
-        baseSubWatershed = getBoundary('subwatershed', statefp);
-        map.addLayer(baseSubWatershed);
+        crosswalkLayers['wmsSubWatershed'].setVisible(true);
+        crosswalkLayers['wmsSubWatershed'] = getBoundary('subwatershed', statefp);
+        map.addLayer(crosswalkLayers['wmsSubWatershed']);
       } else if ($("#selCode").val() == 'STR_Geocoded_All_New') {
-        baseSTR_Geocoded_All_New = getBoundary('str_geocoded_all_new', stabbr);
-        map.addLayer(baseSTR_Geocoded_All_New);
+        // baseSTR_Geocoded_All_New = getBoundary('str_geocoded_all_new', stabbr);
+        // map.addLayer(baseSTR_Geocoded_All_New);
+        crosswalkLayers['STR_Geocoded_All_New'] = getBoundary('str_geocoded_all_new', stabbr);
+        map.addLayer(crosswalkLayers['STR_Geocoded_All_New']);
       } else if ($("#selCode").val() == 'State') {
         $("#searchBarState").val(feature.S.name);
         var extent = feature.getGeometry().getExtent();
@@ -912,14 +1027,15 @@ $("#selCode").change(function() {
     Counties: 'Cook,IL; DuPage,IL; Will,IL'
   };
   if (code !== "SubWatershed")
-    wmsSubWatershed.setVisible(false);
+    crosswalkLayers['wmsSubWatershed'].setVisible(false);
   if (code == 'Zip' || code == 'Tracts' || code == 'Counties' || code == 'LauCnty' || code == 'Cities' || code == 'Districts' || code == 'MSAs' || code == 'NeighbourCities' || code == 'State' || code == 'Food_Report' || code == 'Schools_CCD' || code == 'ConsumerMarket' || code == 'HRR' || code == 'HSA' || code == 'SubBasin' || code == 'SubWatershed' || code == 'OpportunityZones' || code == 'STR_Geocoded_All_New') {
     toastr.info("Use ';' delimiter for searching Multiple " + code + " like " + instructionsArray[code] + "");
     toggleSearchDivs('srch' + code + '');
-    toggleBaseLayers(baseStates);
+    // toggleBaseLayers(baseStates);
+    toggleBaseLayers(crosswalkLayers['States']);
   } else if (code == 'Region' || code == 'BEA10' || code == 'CBSA10' || code == 'ERS10' || code == 'ERS10Rep' || code == 'MSAs_Grainger' || code == 'PEA10' || code == 'TP10' || code == 'TP10METRO' || code == 'TP10MICRO' || code == 'TribalLand' || code == 'WaterShedRegions') {
     toggleSearchDivs('srch' + code + '');
-    toggleBaseLayers(eval('base' + code));
+    toggleBaseLayers(crosswalkLayers[code]);
   }
 });
 
@@ -1331,7 +1447,8 @@ $('#radioBtn a').on('click', function() {
     $("#divRatio").hide();
     $("#divCrosswalk").show();
   } else if (sel == "Ratio") {
-    baseStates.setVisible(false);
+    // baseStates.setVisible(false);
+    crosswalkLayers['States'].setVisible(false);
     removeLayers();
     $("#divChanges").hide();
     $("#divCrosswalk").hide();
