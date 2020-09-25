@@ -20,78 +20,7 @@ var view = new ol.View({
   center: ol.proj.fromLonLat([-97, 38]),
   zoom: 4
 });
-// All Base Layers
-// var baseStates,
-//   baseZip,
-//   baseTracts,
-//   baseCounties,
-//   baseLauCnty,
-//   baseFood_Report,
-//   baseRegion,
-//   baseDistricts,
-//   baseCities,
-//   baseMSAs,
-//   baseNeighbourCities,
-//   baseBEA10,
-//   baseCBSA10,
-//   baseERS10,
-//   baseERS10Rep,
-//   baseMSAs_Grainger,
-//   baseOpportunityZones,
-//   baseSTR_Geocoded_All_New,
-//   basePEA10,
-//   baseTP10,
-//   baseTP10METRO,
-//   baseTP10MICRO,
-//   baseTribalLand,
-//   baseSchools_CCD,
-//   baseHSA,
-//   baseHRR,
-//   baseWaterShedRegions,
-//   baseSubBasin,
-//   wmsSubWatershed,
-//   baseConsumerMarket,
-//
-//   // // // Ratio Layers
-//   ratioLayer,
-//   ratioStates,
-//   ratioCounties,
-//   ratioCBSA10,
-//   ratioZip,
-//   ratioTracts;
-
-// var baseStates,
-//   baseZip,
-//   baseTracts,
-//   baseCounties,
-//   baseLauCnty,
-//   baseFood_Report,
-//   baseRegion,
-//   baseDistricts,
-//   baseCities,
-//   baseMSAs,
-//   baseNeighbourCities,
-//   baseBEA10,
-//   baseCBSA10,
-//   baseERS10,
-//   baseERS10Rep,
-//   baseMSAs_Grainger,
-//   baseOpportunityZones,
-//   baseSTR_Geocoded_All_New,
-//   basePEA10,
-//   baseTP10,
-//   baseTP10METRO,
-//   baseTP10MICRO,
-//   baseTribalLand,
-//   baseSchools_CCD,
-//   baseHSA,
-//   baseHRR,
-//   baseWaterShedRegions,
-//   baseSubBasin,
-//   wmsSubWatershed,
-//   baseConsumerMarket,
-//
-//   // // // Ratio Layers
+// // Ratio Layers
 var ratioLayer,
   ratioStates,
   ratioCounties,
@@ -200,7 +129,7 @@ var sourceDatasets, sourceTracts, sourceCounties, sourceZips, sourceCounties;
 
 var formatArea = function(polygon) {
   var area = ol.Sphere.getArea(polygon);
-  var output = (Math.round(area * 100 * 10.764) / 100); //+' ' + 'ft<sup>2</sup>';
+  var output = (Math.round(area * 100 * 10.764) / 100);
   return output;
 };
 var geojsonFormat = new ol.format.GeoJSON();
@@ -265,26 +194,6 @@ function init() {
   $('select').selectpicker();
   toastr.info("Use Text Boxes or click on the map");
   toastr.info("Use ';' delimiter for searching Multiple ZIPS like '36322;36005'");
-  // baseSubWatershed = getBoundary("subwatershed");
-  // baseStates = getBoundary('states');
-  // baseRegion = getBoundary("region");
-  // baseBEA10 = getBoundary("bea10");
-  // baseCBSA10 = getBoundary("cbsa10");
-  // baseERS10 = getBoundary("ers10");
-  // baseERS10Rep = getBoundary("ers10rep");
-  // baseMSAs_Grainger = getBoundary("msas_grainger");
-  // // baseOpportunityZones = getBoundary("opportunityzones");
-  // basePEA10 = getBoundary("pea10");
-  // baseTP10 = getBoundary("tp10");
-  // baseTP10METRO = getBoundary("tp10metro");
-  // baseTP10MICRO = getBoundary("tp10micro");
-  // baseTribalLand = getBoundary("triballand");
-  // baseSchools_CCD = getBoundary("schools_ccd");
-  // baseConsumerMarket = getBoundary("consumermarket");
-  // baseHSA = getBoundary("hsa");
-  // baseHRR = getBoundary("hrr");
-  // baseWaterShedRegions = getBoundary("watershedregions");
-  // wmsSubWatershed = getWMS("SubWatershed", "subwatershed", "subwatershed", false);
   crosswalkLayers['SubWatershed'] = getBoundary("subwatershed");
   crosswalkLayers['States'] = getBoundary('states');
   crosswalkLayers['Region'] = getBoundary("region");
@@ -315,22 +224,6 @@ function init() {
       osmLight,
       crosswalkLayers['wmsSubWatershed'],
       /* Layer */
-      // baseStates,
-      // baseSubWatershed,
-      // baseRegion,
-      // baseBEA10,
-      // baseCBSA10,
-      // baseERS10,
-      // baseERS10Rep,
-      // baseMSAs_Grainger,
-      // // baseOpportunityZones,
-      // basePEA10,
-      // baseTP10,
-      // baseTP10METRO,
-      // baseTP10MICRO,
-      // baseTribalLand,
-      // baseWaterShedRegions
-
       crosswalkLayers['States'],
       crosswalkLayers['SubWatershed'],
       crosswalkLayers['Region'],
@@ -350,14 +243,11 @@ function init() {
     target: 'map',
     view: view
   });
-  // baseSubWatershed.setVisible(false);
-  // toggleBaseLayers(baseStates);
   crosswalkLayers['SubWatershed'].setVisible(false);
   toggleBaseLayers(crosswalkLayers['States']);
 
   map.on('singleclick', onMouseClick);
   map.on('pointermove', function(evt) {
-    // console.log(evt);
     if (evt.dragging) {
       return;
     }
@@ -488,7 +378,7 @@ function getBoundary(lyrName, statefp) {
         url = '../geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=Farmer:' + lyrName + '&outputFormat=application/json&PropertyName=name,colorid,geom&srsname=EPSG:3857';
       } else if (lyrName == "bea10" || lyrName == "cbsa10" || lyrName == "ers10" || lyrName == "ers10rep" || lyrName == "pea10" || lyrName == "tp10" || lyrName == "tp10metro" || lyrName == "tp10micro") {
         url = '../geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=Farmer:' + lyrName + '&outputFormat=application/json&PropertyName=lm_code,colorid,geom&srsname=EPSG:3857';
-      } else if (lyrName == "opportunityzones") { //waqas
+      } else if (lyrName == "opportunityzones") {
         url = '../geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=Farmer:' + lyrName + '&CQL_FILTER=strToLowerCase(statename)=' + '\'' + statefp + '\'' + '&outputFormat=application/json&PropertyName=geoid10,countyname,colorid,geom&srsname=EPSG:3857';
       }
       $.ajax({
@@ -783,7 +673,6 @@ function onMouseClick(evt) {
       $("#searchBarRatios").val(code);
       searchInputBoundary('Zip', 'name');
     } else if (layerName == 'tracts_ratio') {
-      // removeLayersRatios('overlays');
       var geoid = feature.S.geoid;
       $("#searchBarRatios").val(geoid);
       searchInputBoundary('Tracts', 'geoid');
@@ -866,7 +755,7 @@ function onMouseClick(evt) {
       $("#searchBarMSAs_Grainger").val(code);
       btnSearch('MSAs_Grainger', 'gid');
     } else if (layerName == 'opportunityzones') {
-      var code = feature.S.geoid10; //waqas
+      var code = feature.S.geoid10;
       $("#searchBarOpportunityZones").val(code);
       btnSearch('OpportunityZones', 'geoid10');
     } else if (layerName == 'pea10') {
@@ -959,7 +848,6 @@ $("#selCode").change(function() {
   if (code == 'Zip' || code == 'Tracts' || code == 'Counties' || code == 'LauCnty' || code == 'Cities' || code == 'Districts' || code == 'MSAs' || code == 'NeighbourCities' || code == 'State' || code == 'Food_Report' || code == 'Schools_CCD' || code == 'ConsumerMarket' || code == 'HRR' || code == 'HSA' || code == 'SubBasin' || code == 'SubWatershed' || code == 'OpportunityZones' || code == 'STR_Geocoded_All_New') {
     toastr.info("Use ';' delimiter for searching Multiple " + code + " like " + instructionsArray[code] + "");
     toggleSearchDivs('srch' + code + '');
-    // toggleBaseLayers(baseStates);
     toggleBaseLayers(crosswalkLayers['States']);
   } else if (code == 'Region' || code == 'BEA10' || code == 'CBSA10' || code == 'ERS10' || code == 'ERS10Rep' || code == 'MSAs_Grainger' || code == 'PEA10' || code == 'TP10' || code == 'TP10METRO' || code == 'TP10MICRO' || code == 'TribalLand' || code == 'WaterShedRegions') {
     toggleSearchDivs('srch' + code + '');
@@ -968,10 +856,9 @@ $("#selCode").change(function() {
 });
 
 $(".selGo").change(function() {
-  // try {
-    console.log(crswlkOverlay);
+  try {
     map.removeLayer(crswlkOverlay);
-  // } catch (e) {}
+  } catch (e) {}
   var eleID = $(this).attr('id');
   var boundary = eleID.split('Go').pop();
   Crosswalk(boundary, reportID[boundary]);
@@ -1376,7 +1263,6 @@ $('#radioBtn a').on('click', function() {
     $("#divRatio").hide();
     $("#divCrosswalk").show();
   } else if (sel == "Ratio") {
-    // baseStates.setVisible(false);
     crosswalkLayers['States'].setVisible(false);
     removeLayers();
     $("#divChanges").hide();

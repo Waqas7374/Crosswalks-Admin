@@ -18,9 +18,6 @@ function Crosswalk(val, column) {
     var filter = '';
     if (boundary1 == "Counties" || boundary1 == "NeighbourCities") {
       var state = '';
-      // if(boundary1 == "Counties")
-      // 	state='stusps';
-      // else
       state = 'state';
       var values = value.split(";", 9);
       for (var i = 0; i < values.length; i++) {
@@ -144,7 +141,6 @@ function removeLayers() {
   try {
     map.removeLayer(sLayer);
     map.removeLayer(crswlkOverlay);
-    console.log(crswlkOverlay);
     for (let [key, value] of Object.entries(crosswalkLayers)) {
       crosswalkLayers[key]
     }
@@ -235,21 +231,6 @@ function toggleSearchDivs(val) {
 }
 
 function toggleBaseLayers(val) {
-  console.log(val);
-  // baseRegion.setVisible(false);
-  // baseBEA10.setVisible(false);
-  // baseCBSA10.setVisible(false);
-  // baseStates.setVisible(false);
-  // baseERS10.setVisible(false);
-  // baseERS10Rep.setVisible(false);
-  // baseMSAs_Grainger.setVisible(false);
-  // // // baseOpportunityZones.setVisible(false);
-  // basePEA10.setVisible(false);
-  // baseTP10.setVisible(false);
-  // baseTP10METRO.setVisible(false);
-  // baseTP10MICRO.setVisible(false);
-  // baseWaterShedRegions.setVisible(false);
-  // baseTribalLand.setVisible(false);
   crosswalkLayers['Region'].setVisible(false);
   crosswalkLayers['BEA10'].setVisible(false);
   crosswalkLayers['CBSA10'].setVisible(false);
@@ -287,8 +268,6 @@ function changeLabels(value) {
   } else if (value == "off") {
     hideLabels = true;
   }
-  // baseStates.setStyle(getBoundaryAndLabelStyle);
-  // baseRegion.setStyle(getBoundaryAndLabelStyle);
   crosswalkLayers['States'].setStyle(getBoundaryAndLabelStyle);
   crosswalkLayers['Region'].setStyle(getBoundaryAndLabelStyle);
 
@@ -297,17 +276,14 @@ function changeLabels(value) {
   if ($("#searchBar" + code + "").val() != '') {
     Ghosted = "On";
     try {
-      // eval('base' + code).setStyle(getBoundaryAndLabelStyle);
       crosswalkLayers[code].setStyle(getBoundaryAndLabelStyle);
     } catch (e) {}
   } else {
     Ghosted = "Off";
     try {
-      // eval('base' + code).setStyle(getBoundaryAndLabelStyle);
       crosswalkLayers[code].setStyle(getBoundaryAndLabelStyle);
     } catch (e) {}
   }
-  // baseSubWatershed.setVisible(true);
   crosswalkLayers['SubWatershed'].setVisible(true);
   try {
     sLayer.setStyle(getStyle);
@@ -320,7 +296,6 @@ function changeLabels(value) {
 function btnSearch(val, code) {
   Ghosted = "On";
   try {
-    // eval('base' + val).setStyle(getBoundaryAndLabelStyle);
     crosswalkLayers[val].setStyle(getBoundaryAndLabelStyle);
   } catch (e) {}
   $('#selGo' + val + '').prop('selectedIndex', 0);
