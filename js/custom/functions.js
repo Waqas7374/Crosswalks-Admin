@@ -141,6 +141,11 @@ function getRatios(geoid) {
 }
 
 function removeLayers() {
+  for (let [key, value] of Object.entries(crosswalkLayers)) {
+  // console.log(key);
+  console.log(value);
+  // map.removeLayer(crosswalkLayers[key]);
+}
   // Searched Layers
   try {
     map.removeLayer(sLayer);
@@ -150,74 +155,74 @@ function removeLayers() {
     map.removeLayer(crswlkOverlay);
   } catch (e) {}
   // Base Overlays
-  try {
-    // map.removeLayer(baseZip);
-    map.removeLayer(crosswalkLayers['Zip']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseTracts);
-    map.removeLayer(crosswalkLayers['Tracts']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseCounties);
-    map.removeLayer(crosswalkLayers['Counties']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseCities);
-    map.removeLayer(crosswalkLayers['Cities']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseDistricts);
-    map.removeLayer(crosswalkLayers['Districts']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseMSAs);
-    map.removeLayer(crosswalkLayers['MSAs']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseNeighbourCities);
-    map.removeLayer(crosswalkLayers['NeighbourCities']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseLauCnty);
-    map.removeLayer(crosswalkLayers['LauCnty']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseFood_Report);
-    map.removeLayer(crosswalkLayers['Food_Report']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseSchools_CCD);
-    map.removeLayer(crosswalkLayers['Schools_CCD']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseConsumerMarket);
-    map.removeLayer(crosswalkLayers['ConsumerMarket']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseHSA);
-    map.removeLayer(crosswalkLayers['HSA']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseHRR);
-    map.removeLayer(crosswalkLayers['HRR']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseSubWatershed);
-    map.removeLayer(crosswalkLayers['SubWatershed']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseSubBasin);
-    map.removeLayer(crosswalkLayers['SubBasin']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseOpportunityZones);
-    map.removeLayer(crosswalkLayers['OpportunityZones']);
-  } catch (e) {}
-  try {
-    // map.removeLayer(baseSTR_Geocoded_All_New);
-    map.removeLayer(crosswalkLayers['STR_Geocoded_All_New']);
-  } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseZip);
+  //   map.removeLayer(crosswalkLayers['Zip']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseTracts);
+  //   map.removeLayer(crosswalkLayers['Tracts']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseCounties);
+  //   map.removeLayer(crosswalkLayers['Counties']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseCities);
+  //   map.removeLayer(crosswalkLayers['Cities']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseDistricts);
+  //   map.removeLayer(crosswalkLayers['Districts']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseMSAs);
+  //   map.removeLayer(crosswalkLayers['MSAs']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseNeighbourCities);
+  //   map.removeLayer(crosswalkLayers['NeighbourCities']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseLauCnty);
+  //   map.removeLayer(crosswalkLayers['LauCnty']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseFood_Report);
+  //   map.removeLayer(crosswalkLayers['Food_Report']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseSchools_CCD);
+  //   map.removeLayer(crosswalkLayers['Schools_CCD']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseConsumerMarket);
+  //   map.removeLayer(crosswalkLayers['ConsumerMarket']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseHSA);
+  //   map.removeLayer(crosswalkLayers['HSA']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseHRR);
+  //   map.removeLayer(crosswalkLayers['HRR']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseSubWatershed);
+  //   map.removeLayer(crosswalkLayers['SubWatershed']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseSubBasin);
+  //   map.removeLayer(crosswalkLayers['SubBasin']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseOpportunityZones);
+  //   map.removeLayer(crosswalkLayers['OpportunityZones']);
+  // } catch (e) {}
+  // try {
+  //   // map.removeLayer(baseSTR_Geocoded_All_New);
+  //   map.removeLayer(crosswalkLayers['STR_Geocoded_All_New']);
+  // } catch (e) {}
 }
 
 function hideAndClearAll() {
@@ -325,7 +330,7 @@ function toggleBaseLayers(val) {
   crosswalkLayers['ERS10'].setVisible(false);
   crosswalkLayers['ERS10Rep'].setVisible(false);
   crosswalkLayers['MSAs_Grainger'].setVisible(false);
-  // // baseOpportunityZones'].setVisible(false);
+  // // baseOpportunityZones.setVisible(false);
   crosswalkLayers['PEA10'].setVisible(false);
   crosswalkLayers['TP10'].setVisible(false);
   crosswalkLayers['TP10METRO'].setVisible(false);
@@ -389,7 +394,7 @@ function btnSearch(val, code) {
   Ghosted = "On";
   try {
     // eval('base' + val).setStyle(getBoundaryAndLabelStyle);
-    crosswalkLayers[code].setStyle(getBoundaryAndLabelStyle);
+    crosswalkLayers[val].setStyle(getBoundaryAndLabelStyle);
   } catch (e) {}
   $('#selGo' + val + '').prop('selectedIndex', 0);
   $('#selGo' + val + '').trigger("change");
