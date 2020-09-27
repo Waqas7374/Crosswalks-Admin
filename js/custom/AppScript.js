@@ -834,9 +834,11 @@ $("#selRatio").change(function() {
 });
 
 $("#selCode").change(function() {
+  console.log("here");
   Ghosted = "Off";
   hideAndClearAll();
   removeLayers();
+  map.removeLayer(crswlkOverlay);
   var code = $("#selCode").val();
   var instructionsArray = {
     Zip: '36322;36005',

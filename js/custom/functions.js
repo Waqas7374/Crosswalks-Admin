@@ -133,18 +133,20 @@ function Crosswalk(val, column) {
   }
 }
 
-function getRatios(geoid) {
-  // console.log(geoid);
-}
+function getRatios(geoid) {}
 
 function removeLayers() {
   try {
     map.removeLayer(sLayer);
     map.removeLayer(crswlkOverlay);
     for (let [key, value] of Object.entries(crosswalkLayers)) {
-      crosswalkLayers[key]
+      if (key !== 'States' && key !== 'TribalLand' && key !== 'Region' && key !== 'BEA10' && key !== 'CBSA10' && key !== 'ERS10' && key !== 'ERS10Rep' && key !== 'PEA10' && key !== 'TP10' && key !== 'TP10METRO' && key !== 'TP10MICRO') {
+        map.removeLayer(crosswalkLayers[key]);
+      }
     }
-  } catch (e) {console.log(e);}
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function hideAndClearAll() {
